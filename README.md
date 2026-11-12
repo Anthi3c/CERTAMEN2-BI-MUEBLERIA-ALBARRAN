@@ -87,6 +87,19 @@ Abrir el proyecto de Integration Services en Visual Studio 2019. Configurar los 
 
 Pasos que se realizarán para desarrollar la fase 2: 
 
+1. **Creación de Cubo OLAP:**
+   - Crear Data Sources, Data Sources View y Cubo en Visual Studio 2019.
+
+2. **Configuraciones de Seguridad:**
+   - Copiar el usuario del error presente en el paso anterior y permitirle el acceso desde SSMS en modo `Analysis Services` -> `Security` -> `Logins` -> `New Login`.
+
+3. **Despliegue de Dimensiones del Cubo**
+   - Volviendo a Visual Studio 2019, desde la opción `Browse`, arrastrar las dimensiones para crear querys que mostrarán los datos necesarios para responder los KPI.
+
+4. **Visualización de KPI**
+   - Conectar DW_Albarran a Power BI y, en las pestañas de `Datos` y `Visualizaciones`, desplegar y graficar los datos para que se acomoden a nuestros KPI.
+
+
 
 ## Estructura Del Proyecto 
 - **CERTAMEN2-BI-MUEBLERIA-ALBARRAN/**
