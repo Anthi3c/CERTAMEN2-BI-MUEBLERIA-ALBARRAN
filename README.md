@@ -57,12 +57,12 @@ Este proceso consiste en la extración, transformación y carga de los datos, lo
 <br>
 4. Establecimos una secuencia de ejecución obligatoria donde se cargan primero las 5 dimensiones independientes (Dim_Cliente, Dim_Producto, Dim_Sucursal, Dim_Vendedor, Dim_Tiempo). Una vez pobladas las dimensiones, ejecutamos la carga de la tabla de hechos (Hecho_Ventas) utilizando transformaciones de búsqueda (Lookup) en SSIS para relacionar las claves de negocio del origen con las claves subrogadas de nuestras dimensiones, garantizando la integridad referencial y dejando el Data Warehouse 100% operativo para su análisis.
 
-## CUBO OLAP - fase 2
-En esta etapa, creamos el cubo OLAP usando nuevamente Visual Studio 2019 en un projecto del tipo "analysis services multidimensional and data mining project", conectando este a nuestra Data Warehouse (DW_Albarran) con las funciones de agregar un Data Source y un Data Sources View. Una vez todo conectado, creamos un cubo usando las tablas existentes. Pero para que esto funcione, configuramos la seguridad del Data Warehouse, usando SQL Server Management Studio, para permitir que el usuario que nos daba error ahora tenga acceso a leer, escribir y ser dueño.
+## CUBO OLAP Y DASHBOARD - fase 2
+1. En esta etapa, creamos el cubo OLAP usando nuevamente Visual Studio 2019 en un projecto del tipo "analysis services multidimensional and data mining project", conectando este a nuestra Data Warehouse (DW_Albarran) con las funciones de agregar un Data Source y un Data Sources View. Una vez todo conectado, creamos un cubo usando las tablas existentes. Pero para que esto funcione, configuramos la seguridad del Data Warehouse, usando SQL Server Management Studio, para permitir que el usuario que nos daba error ahora tenga acceso a leer, escribir y ser dueño.
 Finalmente, desplegamos las dimensiones del cubo desde Visual Studio 2019 para poder observar los KPI.
 
-## DASHBOARD POWER BI - fase 2
-Una vez terminado el cubo, lo conectamos al programa Power BI para poder visualizar los KPI que buscamos analizar.
+2. Una vez terminado el cubo, lo conectamos al programa Power BI para poder visualizar los KPI que buscamos analizar.
+   
 
 ## Tecnologías Usadas
 - Visual Studio 2019
