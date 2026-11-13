@@ -57,12 +57,20 @@ Este proceso consiste en la extración, transformación y carga de los datos, lo
 <br>
 4. Establecimos una secuencia de ejecución obligatoria donde se cargan primero las 5 dimensiones independientes (Dim_Cliente, Dim_Producto, Dim_Sucursal, Dim_Vendedor, Dim_Tiempo). Una vez pobladas las dimensiones, ejecutamos la carga de la tabla de hechos (Hecho_Ventas) utilizando transformaciones de búsqueda (Lookup) en SSIS para relacionar las claves de negocio del origen con las claves subrogadas de nuestras dimensiones, garantizando la integridad referencial y dejando el Data Warehouse 100% operativo para su análisis.
 
+## CUBO OLAP Y DASHBOARD - fase 2
+1. En esta etapa, creamos el cubo OLAP usando nuevamente Visual Studio 2019 en un projecto del tipo "analysis services multidimensional and data mining project", conectando este a nuestra Data Warehouse (DW_Albarran) con las funciones de agregar un Data Source y un Data Sources View. Una vez todo conectado, creamos un cubo usando las tablas existentes. Pero para que esto funcione, configuramos la seguridad del Data Warehouse, usando SQL Server Management Studio, para permitir que el usuario que nos daba error ahora tenga acceso a leer, escribir y ser dueño.
+Finalmente, desplegamos las dimensiones del cubo desde Visual Studio 2019 para poder observar los KPI.
 
+2. Una vez terminado el cubo, en el programa Power BI vinculamos DW_Albarran para poder visualizar los KPI que buscamos analizar.
+   - Un Gráfico Circular para identificar la sucursal con mayor cantidad de ventas
+   - Un Gráfico de Área para identificar el mes con mayor cantidad de ventas
+   - Un Gráfico de Barras para identificar el producto con mayor cantidad de ventas
+   
 
 ## Tecnologías Usadas
 - Visual Studio 2019
 - SQL Server Management Studio (SSMS)
-
+- Power BI
 
 
 ## Instrucciones de ejecución/revisión
@@ -77,9 +85,23 @@ Estos son los pasos que se realizarán para desarrollar la fase 1:
 3. **Ejecución del Proceso ETL en SSIS (Visual Studio 2019):**
 Abrir el proyecto de Integration Services en Visual Studio 2019. Configurar los administradores de conexión OLE DB tanto para la base de datos de origen (Albarran) como para la de destino (DW_Albarran). Ejecutar el paquete SSIS para poblar primero las tablas dimensionales (Dim_Cliente, Dim_Producto, Dim_Sucursal, Dim_Vendedor, Dim_Tiempo) y posteriormente la tabla central de hechos (Hecho_Ventas), asegurando la correcta integración y mapeo de las claves subrogadas.
 
+Pasos que se realizarán para desarrollar la fase 2: 
+
+1. **Creación de Cubo OLAP:**
+   - Crear Data Sources, Data Sources View y Cubo en Visual Studio 2019.
+
+2. **Configuraciones de Seguridad:**
+   - Copiar el usuario del error presente en el paso anterior y permitirle el acceso desde SSMS en modo `Analysis Services` -> `Security` -> `Logins` -> `New Login`.
+
+3. **Despliegue de Dimensiones del Cubo**
+   - Volviendo a Visual Studio 2019, desde la opción `Browse`, arrastrar las dimensiones para crear querys que mostrarán los datos necesarios para responder los KPI.
+
+4. **Visualización de KPI**
+   - Conectar DW_Albarran a Power BI y, en las pestañas de `Datos` y `Visualizaciones`, desplegar y graficar los datos para que se acomoden a nuestros KPI.
 
 
-## Estructura Del Proyecto (Por ahora)
+
+## Estructura Del Proyecto 
 - **CERTAMEN2-BI-MUEBLERIA-ALBARRAN/**
   - `README.md`
   - **docs/**
@@ -90,13 +112,15 @@ Abrir el proyecto de Integration Services en Visual Studio 2019. Configurar los 
     - `backup/`
   - **etl/**
     - `proyecto-ssis/`
+  - **powerbi/**
+
 <br>
 <br>
 
 ## Distribución de responsabilidades y aportes
-- **Celestina Piniao — Análisis y Diseño Dimensional**: Definición de KPIs, redactar el diseño del modelo en estrella (Kimball) y redacción de Readme.   
-- **Isidora Guerra — Base de Datos y Tabla de Hechos**: Crear DataWarehouse, incluyendo todas las dimensiones y tabla de Hechos. Crear modelo estrella de forma gráfica.
-- **Agustin Aravena — Calidad, Validación y Repositorio**: Cargar en SSIS las dimensiones, validación de datos (origen vs destino).
+- **Celestina Piniao — Análisis y Diseño Dimensional | Creación de Cubo OLAP**: Definición de KPIs, redactar el diseño del modelo en estrella (Kimball), redacción de la fase 1 del README, creación de Cubo OLAP y configuraciones de servicios de analisis desde SQL Server Management Studio. 
+- **Isidora Guerra — Base de Datos y Tabla de Hechos | Documentación final**: Crear DataWarehouse, incluyendo todas las dimensiones y tabla de Hechos. Crear modelo estrella de forma gráfica. Redacción de la fase 2 del README.
+- **Agustin Aravena — Calidad, Validación y Repositorio | Visualización de KPI en Power BI**: Cargar en SSIS las dimensiones, validación de datos (origen vs destino). Despliegue de datos en Power BI en distintos tipos gráficos acordes a los KPI.
 
 Todos aportan con el ppt y organización del Github (Archivos). 
 
