@@ -50,11 +50,8 @@ Para la construcción del Data Warehouse (DW_Albarran), se migró la estructura 
 ## PROCESO ETL - fase 1
 1. Descripción General Del Proceso ETL:
 Este proceso consiste en la extración, transformación y carga de los datos, lo desarrollaremos usando Visual Studio 2019 con el componente de SSIS (SQL Server Integration Services). Su objetivo principal es extraer los datos desde la base de datos transaccional (OLTP) original de la mueblería, limpiarlos y cargarlos de forma estructurada en las tablas dimensionales del nuevo Data Warehouse (DW_Muebleria).
-<br>
 2. A partir del respaldo de origen, creamos una nueva Base de Datos (BD) llamada DW_Albarran (nuestro Data Warehouse). En ella definimos las tablas basadas en las 5 dimensiones que ya establecimos anteriormente (Dim_Cliente, Dim_Producto, Dim_Sucursal, Dim_Vendedor, Dim_Tiempo) y la tabla central de hechos,  "Hecho_Ventas". Todo esto estructurado en un Modelo Estrella (OLAP) que nos permitira hacer consultas de manera fácil y rápidas.
-<br>
 3. En Visual Studio 2019 creamos un proyecto de Integration Services y configuramos dos administradores de conexiones OLE DB: el Origen (conectado a la BD transaccional Albarran) y el Destino (conectado a DW_Albarran). A continuación, estructuramos el flujo de control (Control Flow) utilizando componentes de Data Flow Task para automatizar la extracción de datos de cada entidad, aplicando transformaciones esenciales como el mapeo de columnas, la homogenización de tipos de datos y la desnormalización de atributos secundarias (por ejemplo, unificando cargos en vendedores y comunas en sucursales).
-<br>
 4. Establecimos una secuencia de ejecución obligatoria donde se cargan primero las 5 dimensiones independientes (Dim_Cliente, Dim_Producto, Dim_Sucursal, Dim_Vendedor, Dim_Tiempo). Una vez pobladas las dimensiones, ejecutamos la carga de la tabla de hechos (Hecho_Ventas) utilizando transformaciones de búsqueda (Lookup) en SSIS para relacionar las claves de negocio del origen con las claves subrogadas de nuestras dimensiones, garantizando la integridad referencial y dejando el Data Warehouse 100% operativo para su análisis.
 
 ## CUBO OLAP Y DASHBOARD - fase 2
@@ -112,6 +109,8 @@ Pasos que se realizarán para desarrollar la fase 2:
     - `backup/`
   - **etl/**
     - `proyecto-ssis/`
+  - **olap/**
+    - `proyecto-ssas/`
   - **powerbi/**
 
 <br>
